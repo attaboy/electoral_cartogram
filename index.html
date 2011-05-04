@@ -8,8 +8,12 @@
 <body>
 <div id="container">
   <div id="header">
-    <h1>Canada by Riding</h1>
+    <h1><span class="ballot">☒</span> Canada by Riding</h1>
     <h2>Election results from the 41st federal election (2011)</h2>
+
+    <div class="selectors">
+      <label class="first" for="y2010"><input class="yearButton" type="radio" name="year" value="2010" id="y2010" checked="checked" /> Before</label><label class="last" for="y2011"><input class="yearButton" type="radio" name="year" value="2011" id="y2011" /> After</label>
+    </div>
   </div>
   <div id="mapContainer">
     <img id="map" src="canada-map-by-riding-blank.png" alt="Map of Canada by riding" width="918" height="377" />
@@ -29,10 +33,10 @@
       <div class="riding" id="west_vancouver_sunshine_coast_sea_to_sky_country"></div>
       <div class="riding" id="skeena_bulkley_valley"></div>
       <div class="riding" id="cariboo_prince_george"></div>
-      <div class="riding" id="desnethe_missinippi_churchhill_river"></div>
+      <div class="riding" id="desnethe_missinippi_churchill_river"></div>
       <div class="riding" id="selkirk_interlake"></div>
       <div class="riding" id="saint_maurice_champlain"></div>
-      <div class="riding" id="pontneuf_jacques_cartier"></div>
+      <div class="riding" id="portneuf_jacques_cartier"></div>
       <div class="riding" id="jonquiere_alma"></div>
       <div class="riding" id="louis_saint_laurent"></div>
       <div class="riding" id="montmorency_charlevoix_haute_cote_nord"></div>
@@ -148,7 +152,7 @@
       <div class="riding" id="ottawa_centre"></div>
       <div class="riding" id="hochelaga"></div>
       <div class="riding" id="bas_richelieu_nicolet_becancour"></div>
-      <div class="riding" id="lotbinieres_chutes_de_la_chaudiere"></div>
+      <div class="riding" id="lotbiniere_chutes_de_la_chaudiere"></div>
       <div class="riding" id="beauce"></div>
       <div class="riding" id="charlottetown"></div>
       <div class="riding" id="cardigan"></div>
@@ -162,7 +166,7 @@
       <div class="riding" id="cypress_hills_grasslands"></div>
       <div class="riding" id="palliser"></div>
       <div class="riding" id="wascana"></div>
-      <div class="riding" id="south_moose_mountain"></div>
+      <div class="riding" id="souris_moose_mountain"></div>
       <div class="riding" id="winnipeg_south"></div>
       <div class="riding" id="provencher"></div>
       <div class="riding" id="thunder_bay_superior_north"></div>
@@ -326,5 +330,9 @@
   </div>
 
 </div>
+<script src="js/jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+<script src="js/jquery.tipsy.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+<script src="js/ridings.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+<script src="js/paint.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 </body>
 </html>
