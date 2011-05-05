@@ -1,28 +1,58 @@
 body {
-	margin: 80px 20px 20px;
-	font-family: Optima, sans-serif;
-	color: #777;
-	background-color: #C44638;
+  margin: 20px 20px 20px;
+  font-family: Optima, sans-serif;
+  color: #5A5A5A;
+  background-color: #C44638;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.1)), to(#C44638));
   background-repeat: no-repeat;
+  text-transform: uppercase;
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 6px 0;
   font-weight: normal;
   text-shadow: 0 1px 0 #FFF;
-  font-style: italic;
+  text-align: center;
+  line-height: 1.2em;
+}
+
+sup {
+  font-size: .6667em;
+  vertical-align: .4em;
+}
+
+a:link, a:visited {
+  color: #C13912;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #B5340C;
 }
 
 #container {
   width: 918px;
-  padding: 20px;
+  padding: 40px 0 20px 0;
   margin: 0 auto;
-  background-color: #DDD;
-  background-image: -webkit-gradient(linear, left top, right bottom, from(rgba(255,255,255,.5)), to(rgba(255,255,255,.1)));
-  border-radius: 20px;
+  background-color: #F1F1F1;
+  background-image: url(img/special_ballot.gif);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   position: relative;
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
 }
+
+.footer {
+  padding: 230px 20px 0px;
+  height: 1em;
+}
+
+.footer1 { float: left; }
+
+.footer2 { float: right; }
+
 
 #mapContainer {
   width: 918px;
@@ -30,46 +60,39 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.ballot {
-  font-size: 3em;
-  line-height: .6em;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-style: normal;
-}
-
 .selectors {
-  margin: 1.5em 0 0 0;
+  margin: 30px 0 0 0;
+  text-align: center;
 }
 
 label {
-  font-size: 1.5em;
+  font-size: 1.25em;
   padding: .1em .5em;
   background-color: #B3B3B3;
   color: white;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: .1em;
+  -webkit-transition: all .25s;
 }
 
 label.first {
-  border-radius: 8px 0 0 0;
-  padding-left: .65em;
+  -webkit-border-top-left-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  border-top-left-radius: 8px;
 }
 
 label.last {
-  border-radius: 0 8px 0 0;
-  padding-right: .65em;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topright: 8px;
+  border-top-right-radius: 8px;
 }
 
 label.selected {
-  background-color: #444;
+  background-color: #444 !important;
 }
 
-label:hover {
-  background-color: #000;
-}
+label:hover { background-color: #B5340C; }
 
 label input {
   display: none;
@@ -1663,12 +1686,12 @@ label input {
 
 
 .tipsy {
-	font-size: 14px;
-	position: absolute;
-	padding: 5px;
-	z-index: 100000;
+  font-size: 12px;
+  position: absolute;
+  padding: 5px;
+  z-index: 100000;
 }
-  .tipsy-inner { background-color: #000; color: #FFF; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }
+  .tipsy-inner { background-color: #000; color: #FFF; padding: 5px 8px 4px 8px; text-align: center; }
 
   /* Rounded corners */
   .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }

@@ -1,58 +1,92 @@
+if (!Array.prototype.forEach) {
+  Array.prototype.forEach = function(fun /*, thisp */) {
+    "use strict";
+    if (this === void 0 || this === null)
+      throw new TypeError();
+    var t = Object(this);
+    var len = t.length >>> 0;
+    if (typeof fun !== "function")
+      throw new TypeError();
+    var thisp = arguments[1];
+    for (var i = 0; i < len; i++) {
+      if (i in t)
+        fun.call(thisp, t[i], i, t);
+    }
+  };
+}
+
 canadaMap.partyNames = {
   'con': 'Conservative',
   'lib': 'Liberal',
-  'ndp': 'New Democrat',
-  'bq': 'Bloc Québécois',
+  'ndp': 'New&nbsp;Democrat',
+  'bq': 'Bloc&nbsp;Québécois',
   'grn': 'Green',
   'ind': 'Independent'
 };
 
-function labelRiding(name, hash, year) {
-  var party = hash[year];
-  if (!party) {
-    console.error(name + ': no party');
-  } else {
+canadaMap.labelRiding = function(name, hash, year) {
+  var oldParty = hash['2010'];
+  var newParty = hash['2011'];
+  try {
     var $riding = $('#' + name);
-    var partyName = canadaMap.partyNames[party] ? ' (' + canadaMap.partyNames[party] + ')' : '';
+    var oldPartyName = canadaMap.partyNames[oldParty];
+    var newPartyName = canadaMap.partyNames[newParty];
+    var party = oldPartyName;
+    if (year === '2011') {
+      if (newPartyName !== oldPartyName) {
+        party += '&nbsp;→&nbsp;' + newPartyName;
+      } else {
+        party += ' hold';
+      }
+    }
     $riding
       .removeClass()
-      .addClass('riding ' + party)
-      .attr({ title: hash.name + partyName });
-  }
-}
+      .addClass('riding ' + hash[year])
+      .attr({ 'meta-data': hash.name + '<br>' + party });
+  } catch(err) {}
+};
 
-function labelRidings(year) {
+canadaMap.labelRidings = function(year) {
   canadaMap.provinces.forEach(function(province) {
     for (var provinceName in province) {
       province[provinceName].forEach(function(riding) {
         for (var ridingName in riding) {
-          labelRiding(ridingName, riding[ridingName], year);
+          canadaMap.labelRiding(ridingName, riding[ridingName], year);
         }
       })
     }
   });
-}
+};
 
-$('.yearButton').click(function(e) {
-  labelRidings(this.value);
-  $('label.selected').removeClass('selected');
-  $(this).closest('label').addClass('selected');
-})
+canadaMap.initialize = function() {
+  $('.yearButtonLabel').click(function(e) {
+    var $this = $(this);
+    canadaMap.labelRidings($this.find('input').val());
+    $('label.selected').removeClass('selected');
+    $this.addClass('selected');
+  })
 
-$('.yearButton:checked').click();
+  $('.yearButton:checked').click();
 
-$.fn.tipsy.defaults = {
-    delayIn: 600,      // delay before showing tooltip (ms)
+  $.fn.tipsy.defaults = {
+    delayIn: 300,      // delay before showing tooltip (ms)
     delayOut: 0,     // delay before hiding tooltip (ms)
     fade: false,     // fade tooltips in/out?
     fallback: '',    // fallback text to use when no tooltip text
-    gravity: 'n',    // gravity
-    html: false,     // is tooltip content HTML?
+    gravity: 's',    // gravity
+    html: true,     // is tooltip content HTML?
     live: false,     // use live event support?
     offset: 0,       // pixel offset of tooltip from element
     opacity: 0.75,    // opacity of tooltip
-    title: 'title',  // attribute/callback containing tooltip text
+    title: 'meta-data',  // attribute/callback containing tooltip text
     trigger: 'hover' // how tooltip is triggered - hover | focus | manual
+  };
+
+  $('.riding').tipsy();
 };
 
-$('.riding').tipsy();
+$(function() {
+  window.setTimeout(function() {
+    canadaMap.initialize();
+  }, 250);
+})
