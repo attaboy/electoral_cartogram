@@ -73,7 +73,9 @@ label {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: .1em;
-  -webkit-transition: all .25s;
+  -webkit-transition: background-color .25s;
+  -moz-transition: background-color .25s;
+  transition: background-color .25s;
 }
 
 label.first {
@@ -103,6 +105,9 @@ label input {
   width: 17px;
   height: 17px;
   background-color: transparent;
+  -webkit-transition: background-color 1s;
+  -moz-transition: background-color 1s;
+  transition: background-color 1s;
 }
 
 .riding:hover {
@@ -111,32 +116,26 @@ label input {
 
 .con {
   background-color: #004FA5;
-  -webkit-transition: all 1s
 }
 
 .lib {
   background-color: #DC000D;
-  -webkit-transition: all 1s
 }
 
 .ndp {
   background-color: #EC832C;
-  -webkit-transition: all 1s
 }
 
 .bq {
   background-color: #3486C7;
-  -webkit-transition: all 1s
 }
 
 .grn {
   background-color: #4C7722;
-  -webkit-transition: all 1s
 }
 
 .ind {
   background-color: #999999;
-  -webkit-transition: all 1s
 }
 
 #yukon {

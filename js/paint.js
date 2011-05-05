@@ -58,15 +58,54 @@ canadaMap.labelRidings = function(year) {
   });
 };
 
-canadaMap.initialize = function() {
-  $('.yearButtonLabel').click(function(e) {
-    var $this = $(this);
-    canadaMap.labelRidings($this.find('input').val());
-    $('label.selected').removeClass('selected');
-    $this.addClass('selected');
-  })
+canadaMap.updateHash = function(year) {
+  var hash = window.location.hash;
+  var newParam = 'show:' + year;
+  if (hash && hash.indexOf('#!/') === 0) {
+    var match = hash.match(/\b(show:\d*)\b/);
+    if (match && match[1]) {
+      hash = hash.replace(/\bshow:\d*\b/, newParam);
+    } else {
+      hash += '/' + newParam;
+    }
+  } else {
+    hash = '#!/' + newParam;
+  }
+  window.location.hash = hash;
+};
+
+canadaMap.handleButtonFor = function($label) {
+  var year = $label.find('input').val();
+  canadaMap.labelRidings(year);
+  $('label.selected').removeClass('selected');
+  $label.addClass('selected');
+  canadaMap.updateHash(year);
+};
+
+canadaMap.getYearFromHash = function() {
+  var hash = window.location.hash;
+  var match = hash.match(/\bshow:(\d{4})\b/);
+  return match && match[1] || null;
+};
+
+canadaMap.resetYear = function() {
+  var year = canadaMap.getYearFromHash();
+  if (year) {
+    $('.yearButton:checked').each(function() { this.checked = false; });
+    $('.yearButton[value=' + year + ']').each(function() { this.checked = true; });
+  }
 
   $('.yearButton:checked').click();
+};
+
+canadaMap.initialize = function() {
+  $('.yearButtonLabel').click(function(e) {
+    canadaMap.handleButtonFor($(this));
+  })
+
+  canadaMap.resetYear();
+
+  $(window).bind('hashchange', function() { canadaMap.resetYear(); });
 
   $.fn.tipsy.defaults = {
     delayIn: 300,      // delay before showing tooltip (ms)
