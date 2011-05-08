@@ -70,7 +70,7 @@ canadaMap.forEachProvinceAndEachRiding = function(year, func) {
     }
   }
   canadaMap.provinces.forEach(provinces);
-}
+};
 
 canadaMap.labelRidings = function(year) {
   canadaMap.forEachProvinceAndEachRiding(year, function(ridingName, result) {
@@ -93,7 +93,7 @@ canadaMap.updateResultsFor = function(year) {
     canadaMap.results = {
       '2010': canadaMap.getResultsFor('2010'),
       '2011': canadaMap.getResultsFor('2011')
-    }
+    };
   }
   var $results = $('#results');
   function appendResult(party, before, after) {
@@ -124,7 +124,7 @@ canadaMap.updateResultsFor = function(year) {
   for (party in canadaMap.results['2010']) {
     appendResult(party, canadaMap.results['2010'][party]);
   }
-  var $alreadyResult
+  var $alreadyResult;
   for (party in canadaMap.results['2011']) {
     $alreadyResult = $('#resultFor-'+party);
     if ($alreadyResult.length) {
@@ -182,7 +182,7 @@ canadaMap.animateYears = function($label) {
   canadaMap.labelRidings(canadaMap.currentYear);
   var $labelForYear = $('input[value='+canadaMap.currentYear+']').closest('label');
   canadaMap.updateButtonStatus($labelForYear, canadaMap.currentYear);
-  canadaMap.animateTimerId = window.setTimeout(canadaMap.animateYears, 1500)
+  canadaMap.animateTimerId = window.setTimeout(canadaMap.animateYears, 1500);
 };
 
 canadaMap.updateButtonStatus = function($label, year) {
