@@ -105,7 +105,7 @@ canadaMap.provinces = [{
     { "humber_st_barbe_baie_verte": { name: "Humber—St Barbe—Baie Verte", '2010': 'lib', '2011': 'lib' } },
     { "labrador": { name: "Labrador", '2010': 'lib', '2011': 'con' } },
     { "random_burin_st_georges": { name: "Random—Burin—St. George’s", '2010': 'lib', '2011': 'lib' } },
-    { "st_johns_east": { name: "St. John’s East", '2010': 'lib', '2011': 'ndp' } },
+    { "st_johns_east": { name: "St. John’s East", '2010': 'ndp', '2011': 'ndp' } },
     { "st_johns_south_mount_pearl": { name: "St. John’s South—Mount Pearl", '2010': 'lib', '2011': 'ndp' } }
   ]}, {
   "northwest_territories": [
@@ -254,7 +254,7 @@ canadaMap.provinces = [{
     { "berthier_maskinonge": { name: "Berthier—Maskinonge", '2010': 'bq', '2011': 'ndp' } },
     { "bourassa": { name: "Bourassa", '2010': 'lib', '2011': 'lib' } },
     { "brome_missisquoi": { name: "Brome—Missisquoi", '2010': 'bq', '2011': 'ndp' } },
-    { "brossard_la_prairie": { name: "Brossard—La Prairie", '2010': 'bq', '2011': 'ndp' } },
+    { "brossard_la_prairie": { name: "Brossard—La Prairie", '2010': 'lib', '2011': 'ndp' } },
     { "chambly_borduas": { name: "Chambly—Borduas", '2010': 'bq', '2011': 'ndp' } },
     { "charlesbourg_haute_saint_charles": { name: "Charlesbourg—Haute-Saint-Charles", '2010': 'con', '2011': 'ndp' } },
     { "chateauguay_saint_constant": { name: "Châteauguay—Saint-Constant", '2010': 'bq', '2011': 'ndp' } },
