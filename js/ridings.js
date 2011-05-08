@@ -282,7 +282,7 @@ canadaMap.provinces = [{
     { "lotbiniere_chutes_de_la_chaudiere": { name: "Lotbinière—Chutes-de-la-Chaudière", '2010': 'con', '2011': 'con' } },
     { "louis_hebert": { name: "Louis-Hébert", '2010': 'bq', '2011': 'ndp' } },
     { "louis_saint_laurent": { name: "Louis-Saint-Laurent", '2010': 'con', '2011': 'ndp' } },
-    { "manicougan": { name: "Manicougan", '2010': 'bq', '2011': 'ndp' } },
+    { "manicouagan": { name: "Manicouagan", '2010': 'bq', '2011': 'ndp' } },
     { "marc_aurele_fortin": { name: "Marc-Aurèle-Fortin", '2010': 'bq', '2011': 'ndp' } },
     { "megantic_lerable": { name: "Mégantic—L’Érable", '2010': 'con', '2011': 'con' } },
     { "montcalm": { name: "Montcalm", '2010': 'bq', '2011': 'ndp' } },
