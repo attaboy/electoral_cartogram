@@ -1,19 +1,23 @@
+/*global canadaMap: false */
+
 if (!Array.prototype.forEach) {
   Array.prototype.forEach = function(fun /*, thisp */) {
     "use strict";
-    if (this === void 0 || this === null)
+    var t = this;
+    var len = t.length;
+    if (typeof fun !== "function") {
       throw new TypeError();
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+    }
     var thisp = arguments[1];
     for (var i = 0; i < len; i++) {
-      if (i in t)
+      if (i in t) {
         fun.call(thisp, t[i], i, t);
+      }
     }
   };
 }
+
+canadaMap.activeParty = '';
 
 canadaMap.partyNames = {
   'con': 'Conservative',
@@ -26,13 +30,14 @@ canadaMap.partyNames = {
 
 canadaMap.labelRiding = function(name, hash, year) {
   var oldParty = hash['2010'];
+  var currentParty = hash[year];
   var newParty = hash['2011'];
   try {
     var $riding = $('#' + name);
     var oldPartyName = canadaMap.partyNames[oldParty];
     var newPartyName = canadaMap.partyNames[newParty];
     var party = oldPartyName;
-    if (year === '2011') {
+    if (year === '2011' || canadaMap.animateTimerId) {
       if (newPartyName !== oldPartyName) {
         party += '&nbsp;→&nbsp;' + newPartyName;
       } else {
@@ -41,30 +46,121 @@ canadaMap.labelRiding = function(name, hash, year) {
     }
     $riding
       .removeClass()
-      .addClass('riding ' + hash[year])
+      .addClass('riding ' + currentParty)
       .attr({ 'meta-data': hash.name + '<br>' + party });
+    if (canadaMap.activeParty) {
+      if (canadaMap.activeParty === currentParty) {
+        $riding.removeClass('hidden');
+      } else {
+        $riding.addClass('hidden');
+      }
+    }
   } catch(err) {}
 };
 
-canadaMap.labelRidings = function(year) {
-  canadaMap.provinces.forEach(function(province) {
-    for (var provinceName in province) {
-      province[provinceName].forEach(function(riding) {
-        for (var ridingName in riding) {
-          canadaMap.labelRiding(ridingName, riding[ridingName], year);
-        }
-      })
+canadaMap.forEachProvinceAndEachRiding = function(year, func) {
+  function ridings(riding) {
+    for (var ridingName in riding) {
+      func(ridingName, riding[ridingName]);
     }
+  }
+  function provinces(province) {
+    for (var provinceName in province) {
+      province[provinceName].forEach(ridings);
+    }
+  }
+  canadaMap.provinces.forEach(provinces);
+}
+
+canadaMap.labelRidings = function(year) {
+  canadaMap.forEachProvinceAndEachRiding(year, function(ridingName, result) {
+    canadaMap.labelRiding(ridingName, result, year);
   });
+  canadaMap.updateResultsFor(year);
+};
+
+canadaMap.getResultsFor = function(year) {
+  var tallies = {};
+  canadaMap.forEachProvinceAndEachRiding(year, function(ridingName, hash) {
+    var party = hash[year];
+    tallies[party] = (tallies[party] || 0) + 1;
+  });
+  return tallies;
+};
+
+canadaMap.updateResultsFor = function(year) {
+  if (!canadaMap.results) {
+    canadaMap.results = {
+      '2010': canadaMap.getResultsFor('2010'),
+      '2011': canadaMap.getResultsFor('2011')
+    }
+  }
+  var $results = $('#results');
+  function appendResult(party, before, after) {
+    var partyName = canadaMap.partyNames[party];
+    if (partyName.search(/s$/) === -1) {
+      partyName += 's';
+    }
+    var $result = $('#resultFor-'+party);
+    if (!$result.length) {
+      $result = $('<div/>')
+        .attr({
+          'class': 'result ' + party,
+          id: 'resultFor-'+party,
+          title: 'Click to toggle only these seats' })
+        .appendTo($results)
+        .click(function() { canadaMap.toggleRidingsFor(party); });
+    }
+    $result.empty().append(
+      $('<span class="name"/>').append(partyName),
+      $('<span class="numbers"/>').append(
+        $('<span class="before"/>').append(before || '0'),
+        $('<span class="after hidden"/>').append(
+          ' &rarr; ',
+          $('<span class="afterNumber"/>').append(after || '0')
+        )));
+  }
+  var party;
+  for (party in canadaMap.results['2010']) {
+    appendResult(party, canadaMap.results['2010'][party]);
+  }
+  var $alreadyResult
+  for (party in canadaMap.results['2011']) {
+    $alreadyResult = $('#resultFor-'+party);
+    if ($alreadyResult.length) {
+      $alreadyResult.find('.afterNumber').empty().append(canadaMap.results['2011'][party]);
+    } else {
+      appendResult(party, '0', canadaMap.results['2011'][party]);
+    }
+  }
+  if (year === '2011') {
+    $results.find('.after').removeClass('hidden');
+  } else {
+    $results.find('.after').addClass('hidden');
+  }
+};
+
+canadaMap.toggleRidingsFor = function(party) {
+  var $ridings = $('.riding');
+  $('.result.selected').removeClass('selected');
+  if (canadaMap.activeParty === party) {
+    canadaMap.activeParty = '';
+    $ridings.removeClass('hidden');
+  } else {
+    $ridings.filter('.'+party).removeClass('hidden');
+    $ridings.not('.'+party).addClass('hidden');
+    canadaMap.activeParty = party;
+    $('#resultFor-'+party).addClass('selected');
+  }
 };
 
 canadaMap.updateHash = function(year) {
   var hash = window.location.hash;
   var newParam = 'show:' + year;
   if (hash && hash.indexOf('#!/') === 0) {
-    var match = hash.match(/\b(show:\d*)\b/);
+    var match = hash.match(/\b(show:\w*)\b/);
     if (match && match[1]) {
-      hash = hash.replace(/\bshow:\d*\b/, newParam);
+      hash = hash.replace(/\bshow:\w*\b/, newParam);
     } else {
       hash += '/' + newParam;
     }
@@ -74,17 +170,42 @@ canadaMap.updateHash = function(year) {
   window.location.hash = hash;
 };
 
-canadaMap.handleButtonFor = function($label) {
-  var year = $label.find('input').val();
-  canadaMap.labelRidings(year);
+canadaMap.animateYears = function($label) {
+  if (!canadaMap.currentYear) {
+    var year = canadaMap.getYearFromHash();
+    if (!year || year.search(/\d{4}/) === -1) {
+      year = '2011';
+    }
+    canadaMap.currentYear = year;
+  }
+  canadaMap.currentYear = canadaMap.currentYear === '2010' ? '2011' : '2010';
+  canadaMap.labelRidings(canadaMap.currentYear);
+  var $labelForYear = $('input[value='+canadaMap.currentYear+']').closest('label');
+  canadaMap.updateButtonStatus($labelForYear, canadaMap.currentYear);
+  canadaMap.animateTimerId = window.setTimeout(canadaMap.animateYears, 1500)
+};
+
+canadaMap.updateButtonStatus = function($label, year) {
   $('label.selected').removeClass('selected');
   $label.addClass('selected');
+};
+
+canadaMap.handleButtonFor = function($label) {
+  window.clearTimeout(canadaMap.animateTimerId);
+  canadaMap.animateTimerId = null;
+  var year = $label.find('input').val();
+  if (year === 'animate') {
+    canadaMap.animateYears($label);
+  } else {
+    canadaMap.labelRidings(year);
+  }
+  canadaMap.updateButtonStatus($label, year);
   canadaMap.updateHash(year);
 };
 
 canadaMap.getYearFromHash = function() {
   var hash = window.location.hash;
-  var match = hash.match(/\bshow:(\d{4})\b/);
+  var match = hash.match(/\bshow:(\d{4}|animate)\b/);
   return match && match[1] || null;
 };
 
@@ -101,7 +222,7 @@ canadaMap.resetYear = function() {
 canadaMap.initialize = function() {
   $('.yearButtonLabel').click(function(e) {
     canadaMap.handleButtonFor($(this));
-  })
+  });
 
   canadaMap.resetYear();
 
@@ -128,4 +249,4 @@ $(function() {
   window.setTimeout(function() {
     canadaMap.initialize();
   }, 250);
-})
+});

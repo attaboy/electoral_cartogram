@@ -6,12 +6,16 @@ body {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.1)), to(#C44638));
   background-repeat: no-repeat;
   text-transform: uppercase;
+  text-shadow: 0 1px 0 #FFF;
+}
+
+label, .result.selected, .tipsy {
+  text-shadow: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 6px 0;
   font-weight: normal;
-  text-shadow: 0 1px 0 #FFF;
   text-align: center;
   line-height: 1.2em;
 }
@@ -35,17 +39,22 @@ a:hover {
   padding: 40px 0 20px 0;
   margin: 0 auto;
   background-color: #F1F1F1;
-  background-image: url(img/special_ballot.gif);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#F1F1F1), to(#E0E0E0), color-stop(.15, #CCC), color-stop(.3, #F1F1F1));
+  background-repeat: no-repeat;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   position: relative;
-  background-repeat: no-repeat;
-  background-position: 50% 100%;
+  -webkit-box-shadow: 0 3px 5px rgba(0,0,0,.5);
+  -moz-box-shadow: 0 3px 5px rgba(0,0,0,.5);
+  box-shadow: 0 3px 5px rgba(0,0,0,.5);
 }
 
 .footer {
-  padding: 230px 20px 0px;
+  padding: 225px 20px 0px;
+  background-image: url(img/special_ballot.png);
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
   height: 1em;
 }
 
@@ -58,15 +67,22 @@ a:hover {
   width: 918px;
   height: 377px;
   position: relative;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #E0E0E0 #FFF #AAA #999;
 }
 
 .selectors {
   margin: 30px 0 0 0;
   text-align: center;
+  position: relative;
+  top: 1px;
+  z-index: 1;
 }
 
 label {
   font-size: 1.25em;
+  margin: 0 1px 0 0;
   padding: .1em .5em;
   background-color: #B3B3B3;
   color: white;
@@ -105,9 +121,9 @@ label input {
   width: 17px;
   height: 17px;
   background-color: transparent;
-  -webkit-transition: background-color 1s;
-  -moz-transition: background-color 1s;
-  transition: background-color 1s;
+  -webkit-transition: background-color .75s;
+  -moz-transition: background-color .75s;
+  transition: background-color .75s;
 }
 
 .riding:hover {
@@ -116,26 +132,79 @@ label input {
 
 .con {
   background-color: #004FA5;
+  border-color: #004FA5;
 }
 
 .lib {
   background-color: #DC000D;
+  border-color: #DC000D;
 }
 
 .ndp {
   background-color: #EC832C;
+  border-color: #EC832C;
 }
 
 .bq {
   background-color: #3486C7;
+  border-color: #3486C7;
 }
 
 .grn {
   background-color: #4C7722;
+  border-color: #4C7722;
 }
 
 .ind {
   background-color: #999999;
+  border-color: #999999;
+}
+
+.hidden {
+  background-color: transparent;
+}
+
+#results {
+  overflow: hidden;
+  padding: 10px 110px 10px 110px;
+}
+
+#results .help {
+  font-size: 12px;
+  padding: 0 0 10px 0;
+  text-align: center;
+}
+
+.result {
+  position: relative;
+  display: inline-block;
+  background-color: transparent;
+  padding: 0 1px 0 8px;
+  margin: 1px 10px 1px;
+  width: 300px;
+  cursor: pointer;
+  border-width: 0 0 1px 20px;
+  border-style: dotted solid;
+}
+
+.result:hover {
+  background-color: white;
+}
+
+.result.selected {
+  background-color: #444;
+  color: white;
+}
+
+.result .numbers { float: right; }
+.result .afterNumber {
+  width: 2em;
+  display: inline-block;
+  text-align: right;
+}
+
+.result .hidden {
+  display: none;
 }
 
 #yukon {

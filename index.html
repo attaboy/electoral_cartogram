@@ -12,7 +12,7 @@
     <h2>Election results from the 41<sup>st</sup> federal election in 2011</h2>
   </div>
   <div class="selectors">
-    <label class="yearButtonLabel first" for="y2010"><input class="yearButton" type="radio" name="year" value="2010" id="y2010" checked="checked" />Before</label><label class="yearButtonLabel last" for="y2011"><input class="yearButton" type="radio" name="year" value="2011" id="y2011" />After</label>
+    <label class="yearButtonLabel first" for="y2010"><input class="yearButton" type="radio" name="year" value="2010" id="y2010" checked="checked" />Before</label><label class="yearButtonLabel" for="y2011"><input class="yearButton" type="radio" name="year" value="2011" id="y2011" />After</label><label class="yearButtonLabel last" for="animate"><input class="yearButton" type="radio" name="year" value="animate" id="animate" />Animate</label>
   </div>
   <div id="mapContainer">
     <img id="map" src="canada-map-by-riding-blank.png" alt="Map of Canada by riding" width="918" height="377" />
@@ -326,6 +326,9 @@
       <div class="riding" id="niagara_falls"></div>
       <div class="riding" id="kitchener_centre"></div>
     </div>
+  </div>
+  <div id="results">
+    <div class="help">Click a party below to toggle only that party’s seats.</div>
   </div>
 
   <div class="footer">
