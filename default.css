@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 0 6px 0;
   font-weight: normal;
   text-align: center;
-  line-height: 1.2em;
+  line-height: 24px;
 }
 
 sup {
@@ -28,11 +28,10 @@ sup {
 a:link, a:visited {
   color: #C13912;
   text-decoration: none;
+  border-bottom: 1px dotted #c13912;
 }
 
-a:hover {
-  color: #B5340C;
-}
+a:hover { color: #591200; }
 
 #container {
   width: 918px;
