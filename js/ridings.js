@@ -202,7 +202,7 @@ canadaMap.provinces = [{
     { "pickering_scarborough_east": { name: "Pickering—Scarborough East", '2010': 'lib', '2011': 'con' } },
     { "prince_edward_hastings": { name: "Prince Edward—Hastings", '2010': 'con', '2011': 'con' } },
     { "renfrew_nipissing_pembroke": { name: "Renfrew—Nipissing—Pembroke", '2010': 'con', '2011': 'con' } },
-    { "richmond_hill": { name: "Richmond—Hill", '2010': 'lib', '2011': 'con' } },
+    { "richmond_hill": { name: "Richmond Hill", '2010': 'lib', '2011': 'con' } },
     { "sarnia_lambton": { name: "Sarnia—Lambton", '2010': 'con', '2011': 'con' } },
     { "sault_ste_marie": { name: "Sault Ste. Marie", '2010': 'ndp', '2011': 'con' } },
     { "scarborough_agincourt": { name: "Scarborough—Agincourt", '2010': 'lib', '2011': 'lib' } },
