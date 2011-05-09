@@ -164,10 +164,16 @@ canadaMap.updateHash = function(year) {
     } else {
       hash += '/' + newParam;
     }
+    window.location.hash = hash;
   } else {
     hash = '#!/' + newParam;
+    if (window.history) {
+      // don't alter browser history on first update of location hash
+      window.history.replaceState({}, window.document.title, hash);
+    } else {
+      window.location.hash = hash;
+    }
   }
-  window.location.hash = hash;
 };
 
 canadaMap.animateYears = function($label) {
