@@ -286,7 +286,7 @@ canadaMap.provinces = [{
     { "marc_aurele_fortin": { name: "Marc-Aurèle-Fortin", '2010': 'bq', '2011': 'ndp' } },
     { "megantic_lerable": { name: "Mégantic—L’Érable", '2010': 'con', '2011': 'con' } },
     { "montcalm": { name: "Montcalm", '2010': 'bq', '2011': 'ndp' } },
-    { "montmagny_lislet_kamouraska_riviere_du_loup": { name: "Montmagny—L’Islet—Kamouraska—Riviere-du-Loup", '2010': 'con', '2011': 'con' } },
+    { "montmagny_lislet_kamouraska_riviere_du_loup": { name: "Montmagny—L’Islet—Kamouraska—Riviere-du-Loup", '2010': 'con', '2011': 'ndp' } },
     { "montmorency_charlevoix_haute_cote_nord": { name: "Montmorency—Charlevoix—Haute-Côte-Nord", '2010': 'bq', '2011': 'ndp' } },
     { "mount_royal": { name: "Mount Royal", '2010': 'lib', '2011': 'lib' } },
     { "notre_dame_de_grace_lachine": { name: "Notre-Dame-de-Grâce—Lachine", '2010': 'lib', '2011': 'ndp' } },
